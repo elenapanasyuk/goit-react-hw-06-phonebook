@@ -34,28 +34,28 @@ class App extends Component {
   //   }
   // }
 
-  handleAddContact = ({ name, number }) => {
-    const contact = {
-      id: shortid.generate(),
-      name,
-      number,
-    };
+  // handleAddContact = ({ name, number }) => {
+  //   const contact = {
+  //     id: shortid.generate(),
+  //     name,
+  //     number,
+  //   };
 
-    const { contacts } = this.state;
+  //   const { contacts } = this.state;
 
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === name.toLowerCase(),
-      )
-    ) {
-      alert('Contact is already exist');
-    } else if (!name || !number) {
-      alert('Some field is empty');
-    } else
-      this.setState(({ contacts }) => ({
-        contacts: [contact, ...contacts],
-      }));
-  };
+  //   if (
+  //     contacts.find(
+  //       contact => contact.name.toLowerCase() === name.toLowerCase(),
+  //     )
+  //   ) {
+  //     alert('Contact is already exist');
+  //   } else if (!name || !number) {
+  //     alert('Some field is empty');
+  //   } else
+  //     this.setState(({ contacts }) => ({
+  //       contacts: [contact, ...contacts],
+  //     }));
+  // };
 
   // handleDeleteContact = id =>
   //   this.setState(({ contacts }) => ({
@@ -81,18 +81,19 @@ class App extends Component {
       <div>
         <Container>
           <h1>Phonebook</h1>
-          <ContactForm onSubmit={this.handleAddContact} />
+          <ContactForm />
         </Container>
-        {/* <Container title="Contacts">
-          <Filter filter={filter} onChange={this.handleChangeFilter} />
-          <ContactList
+        <Container title="Contacts">
+          <Filter />
+          <ContactList />
+          {/* <ContactList
             contacts={visibleContacts}
             onDeleteContact={this.handleDeleteContact}
-          />
-        </Container> */}
-        <Container>
-          <Counter />
+          /> */}
         </Container>
+        {/* <Container>
+          <Counter />
+        </Container> */}
       </div>
     );
   }
