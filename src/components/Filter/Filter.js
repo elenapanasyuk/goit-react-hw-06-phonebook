@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getFilter } from '../../redux/phonebook/phonebook-selectors';
 import { changeFilter } from '../../redux/phonebook/phonebook-actions';
 import s from './Filter.module.css';
@@ -21,19 +20,4 @@ function Filter() {
   );
 }
 
-// Filter.propTypes = {
-//   value: PropTypes.string,
-//   onChange: PropTypes.func.isRequired,
-// };
-
 export default Filter;
-
-// const mapStateToProps = state => ({
-//   value: state.phonebook.filter,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onChange: event => dispatch(changeFilter(event.target.value)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Filter);

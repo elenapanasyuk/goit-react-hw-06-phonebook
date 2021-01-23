@@ -3,6 +3,7 @@ export const getFilter = state => state.phonebook.filter;
 
 export const getVisibleContacts = state => {
   const allContacts = getContacts(state);
+  console.log(allContacts);
   const filter = getFilter(state);
   const normalizedFilter = filter.toLowerCase();
 

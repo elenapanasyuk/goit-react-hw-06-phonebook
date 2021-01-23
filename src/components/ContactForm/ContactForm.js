@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-// import { addContact } from '../../redux/phonebook/phonebook-actions';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/phonebook/phonebook-actions';
+import { getContacts } from '../../redux/phonebook/phonebook-selectors';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import s from './ContactForm.module.css';
 
-function ContactForm({ onSubmit }) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -23,11 +26,30 @@ function ContactForm({ onSubmit }) {
         return;
     }
   };
+  const isNameExist = name => {
+    return contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+  };
+  const isNumberExist = number => {
+    return contacts.find(contact => contact.number === number);
+  };
+
+  const isQueryEmpty = (name, number) => {
+    return name.trim() === '' || number.trim() === '';
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact(name, number));
-    // onSubmit(name, number);
+    if (isNameExist(name)) {
+      toast.warning('This name is already exist');
+    } else if (isNumberExist(number)) {
+      toast.warning('This number is already exist');
+    } else if (isQueryEmpty(name, number)) {
+      toast.error('Some fields are empty');
+    } else {
+      dispatch(addContact(name, number));
+    }
     resetForm();
   };
 
@@ -70,10 +92,5 @@ function ContactForm({ onSubmit }) {
 ContactForm.propTyper = {
   onSubmit: PropTypes.func.isRequired,
 };
-
-// const mapDispatchToProps = dispatch => ({
-//   onSubmit: state => dispatch(phonebookActions.addContact(state)),
-// });
-// export default connect(null, mapDispatchToProps)(ContactForm);
 
 export default ContactForm;

@@ -11,22 +11,25 @@ function ContactList() {
   const onDeleteContact = id => dispatch(deleteContact(id));
 
   return (
-    <ul className={s.list}>
-      {contacts.map(({ id, name, number }) => (
-        <li className={s.item} key={id}>
-          <p>
-            {name}: {number}
-          </p>
-          <button
-            type="button"
-            className={s.button}
-            onClick={() => onDeleteContact(id)}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      {contacts.length === 0 && <p> No contacts </p>}
+      <ul className={s.list}>
+        {contacts.map(({ id, name, number }) => (
+          <li className={s.item} key={id}>
+            <p>
+              {name}: {number}
+            </p>
+            <button
+              type="button"
+              className={s.button}
+              onClick={() => onDeleteContact(id)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 ContactList.propTypes = {
@@ -39,32 +42,5 @@ ContactList.propTypes = {
   ),
   onDeleteContact: PropTypes.func,
 };
-
-// const getVisibleContacts = (allContacts, filter) => {
-//   const normalizedFilter = filter.toLowerCase();
-
-//   return allContacts.filter(contact =>
-//     contact.name.toLowerCase().includes(normalizedFilter),
-//   );
-// };
-
-// const mapStateToProps = ({ phonebook: { contacts, filter } }) => ({
-//   contacts: getVisibleContacts(contacts, filter),
-// });
-
-// const mapStateToProps = state => {
-//   const { filter, contacts } = state.phonebook;
-//   const visibleContacts = getVisibleContacts(contacts, filter);
-
-//   return {
-//     contacts: visibleContacts,
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => ({
-//   onDeleteContact: id => dispatch(deleteContact(id)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
 
 export default ContactList;
